@@ -1,0 +1,10 @@
+<div class="form-container">
+  <h2>Inicio de sesión</h2>
+  <img src="assets/images/eventime_small.png" id="eventime">
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <span class="error" *ngIf="authError" [@fallIn]='state'>{{ authError?.message }}</span>
+    <input ngModel #email="ngModel" type="email" placeholder="Correo" name="email" class="txt" required>
+    <input ngModel #password="ngModel" type="password" placeholder="Contraseña" name="password" class="txt" required>
+    <button type="submit" class="basic-btn">Entrar</button>
+  </form>
+</div>

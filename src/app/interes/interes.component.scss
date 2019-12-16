@@ -1,0 +1,36 @@
+.users-list {
+  padding: 40px 60px;
+
+  .image-col {
+    text-align:center;
+
+    .image {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .text-col {
+    margin: auto 0px;
+  }
+  .actions-col {
+    text-align: center;
+    margin: auto 0px;
+
+    .action {
+      line-height: 1;
+    }
+    .icon {
+      font-size: 20px;
+    }
+    .delete {
+      background-image: url('../../assets/icons/md-trash.svg');
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px;
+    }
+  }
+}
+.pag {
+  text-align: center !important;
+}

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-4 offset-md-1">
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" placeholder="Buscar por categoría..." (keyup)="searchByCategory()">
+      <div class="input-group-append">
+        <span class="input-group-text"><ion-icon class="icon" name="search"></ion-icon></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list-group users-list">
+  <div *ngFor="let item of items | paginate: config" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-2 image-col">
+        <img class="avatar-image" [src]="item.payload.doc.data().urlImagen">
+      </div>
+      <div class="col col-md-8 text-col">
+        <h5 class="mb-1">{{item.payload.doc.data().nombre}}</h5>
+        <small>Categoría: {{item.payload.doc.data().categoria}}</small><br/>
+        <small>Fecha: {{item.payload.doc.data().fecha}}</small>
+      </div>
+      <div class="col col-md-1 actions-col">
+        <button class="btn action edit" (click)="viewDetails(item);" type="button"></button>
+      </div>
+    </div>
+  </div>
+  <div class="col col-md-12 list-group-item flex-column pag">
+    <pagination-controls (pageChange)="pageChanged($event)"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"></pagination-controls>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+.page-container {
+  display: grid;
+  grid-template-columns: 100px auto;
+  height: 100%;
+  padding: 0;
+
+  .side-bar {
+    //background: #FC7323;
+    background: #ffffff;
+    display: none;
+    .nav-link {
+      color: #495057;
+      font-size: 14px;
+    }
+  }
+
+  .willer {
+    margin-left: 1.8rem;
+  }
+
+  .description {
+    margin-top: -0.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .desc-eventos {
+    margin-left: -0.4rem;
+  }
+
+  .desc-new-event {
+    margin-left: -1.4rem;
+  }
+
+  .desc-users {
+    margin-left: -0.6rem;
+  }
+
+  .desc-new-user {
+    margin-left: -1.5rem;
+  }
+
+  .desc-interesados {
+    margin-left: -1rem;
+  }
+
+  .desc-logout {
+    margin-left: 0.2rem;
+  }
+
+  .content-container {
+    margin-top: 30px;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .icon {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+  }
+
+  .icon-home {
+    margin-top: 15px;
+  }
+
+}

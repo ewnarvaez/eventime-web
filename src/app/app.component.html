@@ -1,0 +1,46 @@
+<div class="page-container">
+	<div *ngIf="user" class="side-bar" id="side-bar">
+		<ul class="nav flex-column willer">
+		  	<li class="nav-item">
+		    	<a class="nav-link active" routerLink="home">
+            <img src="assets/icons/md-events.svg" alt="Eventos" class="icon icon-home">
+            <p class="description desc-eventos">Eventos</p>
+          </a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link active" routerLink="new-event">
+					  <img src="assets/icons/md-add-circle.svg" alt="Nuevo Evento" class="icon icon-new">
+            <p class="description desc-new-event">Nuevo Evento</p>
+				  </a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link" routerLink="show-users">
+					  <img src="assets/icons/md-people.svg" alt="Listar Usuarios" class="icon icon-users">
+            <p class="description desc-users">Usuarios</p>
+				  </a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link" routerLink="new-user">
+					  <img src="assets/icons/md-person-add.svg" alt="Nuevo Usuario" class="icon icon-user">
+            <p class="description desc-new-user">Nuevo Usuario</p>
+				  </a>
+        </li>
+        <li class="nav-item">
+		    	<a class="nav-link"  routerLink="interes">
+					  <img src="assets/icons/md-interesados.svg" alt="Interesados" class="icon icon-interes">
+            <p class="description desc-interesados">Interesados</p>
+          </a>
+        </li>
+		  	<li class="nav-item">
+		    	<a class="nav-link" (click)="logout()" routerLink="login">
+            <img src="assets/icons/md-log-out.svg" alt="Salir" class="icon icon-logout">
+            <p class="description desc-logout">Salir</p>
+				  </a>
+        </li>
+		</ul>
+	</div>
+	<div class="content-container">
+ 		<router-outlet></router-outlet>
+	</div>
+</div>
+

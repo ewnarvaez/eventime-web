@@ -1,0 +1,211 @@
+<div class="create-page">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Editar Evento</li>
+    </ol>
+  </nav>
+  <div class="page-content">
+    <div class="row">
+      <div class="col col-md-6">
+        <ion-content padding>
+          <div *ngIf="!isUploaded">
+            <ion-card color="light" text-center>
+              <ion-card-header>
+                <ion-card-title>
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <img id="eventImage" [src]="itemEvent.urlImagen" class="img-avatar" />
+              </ion-card-content>
+            </ion-card>
+          </div>
+          <div *ngIf="isUploaded">
+            <ion-card color="light" text-center *ngFor="let item of images | async">
+              <ion-card-header>
+                <ion-card-title>
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <img id="eventImage" [src]="item.filepath" class="img-avatar" />
+              </ion-card-content>
+            </ion-card>
+          </div>
+          <!--BOTÓN DE SUBIDA DE LA IMAGEN-->
+          <ion-card text-center *ngIf="!isUploading">
+            <ion-card-header>
+              <ion-card-title></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="fileUpload btn btn-success">
+                <span>Cambiar Imagen</span>
+                <input
+                  id="uploadBtn"
+                  type="file"
+                  class="upload"
+                  (change)="uploadFile($event.target.files)"
+                />
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <!--PROGRESO DEL PROCESO DE SUBIDA DE LA IMAGEN-->
+          <ion-card text-center *ngIf="isUploading && !isUploaded">
+            <ion-card-header>
+              <ion-card-title>
+                <div class="text-center">Archivo seleccionado<b>{{ fileName }}</b></div>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div *ngIf="percentage | async as pct" class="text-center">
+                Progreso: {{ pct | number }}%
+                <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
+              </div>
+              <div *ngIf="snapshot | async as snap" class="text-center"></div>
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+        <!--Fin de la Gestión de imágenes-->
+        <input id="searchInput" class="controls" type="text" placeholder="Ingrese una locación">
+        <div id="googleMap"></div>
+      </div>
+
+      <div class="col col-md-6">
+        <form class="create-form" #eventForm="ngForm"  (ngSubmit)="onSubmit(eventForm.value)">
+
+		      <!-- Categoria -->
+          <div class="form-group">
+              <label>Categoria *</label>
+              <select matInput class="form-control" id="categoria"
+              ngModel name="categoria" [(ngModel)]="model.categoria" #categoria="ngModel" required>
+                <option *ngFor="let categoria of categorias" [value]="model.categoria">
+                  {{categoria.viewValue}}
+                </option>
+              </select>
+              <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)" class="alert alert-danger">
+                <div *ngIf="categoria?.errors.required">
+                  La Categoría es obligatoria.
+                </div>
+              </div>
+          </div>
+
+          <!-- Nombre -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput placeholder="Nombre" class="form-control" id="nombre" required
+              ngModel name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel">
+            </mat-form-field>
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+              <div *ngIf="nombre?.errors.required">
+                El nombre es obligatorio.
+              </div>
+            </div>
+          </div>
+
+			    <!-- Dirección -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput placeholder="Dirección" class="form-control" id="direccion"
+              ngModel name="direccion" [(ngModel)]="model.direccion">
+            </mat-form-field>
+
+          </div>
+
+			    <!-- Fecha -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input type="date" matInput placeholder="Fecha Realización" class="form-control" id="fecha"
+              ngModel name="fecha" #fecha="ngModel" [(ngModel)]="model.fecha" required>
+            </mat-form-field>
+            <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="alert alert-danger">
+              <div *ngIf="fecha?.errors.required">
+                La fecha es obligatoria.
+              </div>
+            </div>
+          </div>
+
+			    <!-- Latitud -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input id="lat" matInput placeholder="Latitud" class="form-control"
+              [(ngModel)]="model.latitud" name="latitud" #latitud="ngModel" required>
+            </mat-form-field>
+            <div *ngIf="latitud.invalid && (latitud.dirty || latitud.touched)" class="alert alert-danger">
+              <div *ngIf="latitud?.errors.required">
+                La latitud es obligatoria.
+              </div>
+            </div>
+          </div>
+
+			    <!-- Longitud -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input id="lon" matInput placeholder="Longitud" class="form-control" ngModel name="longitud"
+              [(ngModel)]="model.longitud" #longitud="ngModel" required>
+            </mat-form-field>
+            <div *ngIf="longitud.invalid && (longitud.dirty || longitud.touched)" class="alert alert-danger">
+              <div *ngIf="longitud?.errors.required">
+                La longitud es obligatoria.
+              </div>
+            </div>
+          </div>
+
+			    <!-- Telefono -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput placeholder="Teléfono" class="form-control" id="telefono" ngModel name="telefono"
+              [(ngModel)]="model.telefono">
+            </mat-form-field>
+
+          </div>
+
+          <!-- urlInscripción -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input id="inscripcion" matInput placeholder="Url Inscripcion" class="form-control"
+              ngModel name="urlInscripcion" [(ngModel)]="model.inscripcion">
+            </mat-form-field>
+
+          </div>
+
+			    <!-- urlImagen -->
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input id="url" matInput placeholder="Url Imágen" class="form-control" ngModel name="urlImagen"
+              [(ngModel)]="model.url" #url="ngModel" required>
+            </mat-form-field>
+            <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert alert-danger">
+              <div *ngIf="url?.errors.required">
+                La imagen del evento es obligatoria.
+              </div>
+            </div>
+          </div>
+
+          <!-- Descripcion -->
+          <div class="form-group">
+              <mat-form-field class="input-style">
+                <textarea matInput placeholder="Descripción" class="form-control" maxlength="200" id="descripcion"
+                ngModel name="descripcion" [(ngModel)]="model.descripcion" #descripcion="ngModel" required></textarea>
+              </mat-form-field>
+              <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+                <div *ngIf="descripcion?.errors.required">
+                  La descripción es obligatoria.
+                </div>
+                <div *ngIf="descripcion?.errors.maxlength">
+                  La descripción no puede superar los 200 caracteres
+                </div>
+              </div>
+            </div>
+
+          <!-- Submit Button -->
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" type="submit" [disabled]="!eventForm.valid">Guardar</button>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button class="delete-button" type="button" (click)="delete()">Eliminar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

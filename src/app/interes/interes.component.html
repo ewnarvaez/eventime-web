@@ -1,0 +1,31 @@
+<div class="create-page">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Usuarios Interesados</li>
+    </ol>
+  </nav>
+  <div class="page-content">
+    <div class="list-group users-list">
+      <div *ngFor="let item of items | paginate: config" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+          <div class="col col-md-11 text-col">
+            <h5>Evento: {{item.payload.doc.data().nombreEvento}}</h5>
+            <h6>Nombre: {{item.payload.doc.data().nombre}}</h6>
+            <h6>Correo: <a href="mailto:{{item.payload.doc.data().correo}}">{{item.payload.doc.data().correo}}</a></h6>
+          </div>
+          <div class="col col-md-1 actions-col">
+            <button class="btn action delete" (click)="deleteInt(item.payload.doc.id);" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-12 list-group-item flex-column pag">
+        <pagination-controls (pageChange)="pageChanged($event)"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
