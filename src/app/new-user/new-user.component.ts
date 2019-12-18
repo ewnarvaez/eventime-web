@@ -26,7 +26,7 @@ export class NewUserComponent implements OnInit {
   user: firebase.User;
 
   exampleForm: FormGroup;
-  avatarLink = '../../assets/images/eventime_small.png';
+  avatarLink = 'assets/images/eventime_small.png';
 
   validation_messages = {
    'correo': [

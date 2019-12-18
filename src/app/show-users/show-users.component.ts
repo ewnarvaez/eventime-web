@@ -11,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
 export class ShowUsersComponent implements OnInit {
 
   config: any;
-  avatarLink = '../../assets/images/eventime_small.png';
+  avatarLink = 'assets/images/eventime_small.png';
   user: firebase.User;
   agedValue = 0;
   searchValue = '';
